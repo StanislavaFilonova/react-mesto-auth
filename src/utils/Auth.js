@@ -50,6 +50,21 @@ class Auth{
         })
         .then(this.checkResponse)
    }
+
+    /**
+    * Метод запроса для проверки валидности токена и получения email для вставки в шапку сайта 
+    * @param {String} token Токен пользователя, необходимый для авторизации/регистрации
+    */
+    checkToken(token) {
+        return fetch(`${this._baseUrl}/users/me`, {//эдпойнт
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${token}`
+            }, 
+        })
+        .then(this.checkResponse);
+    }
 }
 
 const auth = new Auth({   
