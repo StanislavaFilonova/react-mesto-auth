@@ -9,35 +9,37 @@ import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import DeleteCardPopup from "./DeleteCardPopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
+import Login from "./Login.js";
+import auth from "../utils/Auth";
+//import ProtectedRoute from './ProtectedRoute';
+//import Register from './Register';
+//import InfoTooltip from './InfoTooltip';
+//import { BrowserRouter, Route, Switch, Redirect, useHistory } from 'react-router-dom';
+
 
 //---------------------------------------------------------------------------------------------------------------------
 
 function App() {
     //Создаем хуки, управляющие внутренним состоянием.
-    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-        React.useState(false);
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-        React.useState(false);
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isDeleteCardPopup, setIsDeleteCardPopup] = React.useState(false);
-
-    const [selectedCard, setSelectedCard] = React.useState({
-        link: "",
-        name: "",
-    });
-    const [currentUser, setCurrentUser] = React.useState({});
-
+    //const [isInfoTooltipPopup, onInfoTooltipPopup] = React.useState(false);
+    //const [isLuckInfoTooltip, setLuckInfoTooltip] = React.useState(null);
+    //const [islogOn, setlogOn] = React.useState(null);
+    //const [isLoading, setIsLoading] = React.useState(true);
+    //const history = useHistory();
+    //const [userEmail, setUserEmail] = React.useState("");
+    //const [userPassword, setUserPassword] = React.useState("");
     const [cards, setCards] = React.useState([]);
     const [cardDelete, setCardDelete] = React.useState({});
-
-    const [profilePopupButtonText, setProfilePopupButtonText] =
-        React.useState("Сохранить");
-    const [avatarPopupButtonText, setAvatarPopupButtonText] =
-        React.useState("Сохранить");
-    const [placePopupButtonText, setPlacePopupButtonText] =
-        React.useState("Создать");
-    const [removePopupButtonText, setRemovePopupButtonText] =
-        React.useState("Да");
+    const [profilePopupButtonText, setProfilePopupButtonText] = React.useState('Сохранить');
+    const [avatarPopupButtonText, setAvatarPopupButtonText] = React.useState('Сохранить');
+    const [placePopupButtonText, setPlacePopupButtonText] = React.useState('Создать');
+    const [removePopupButtonText, setRemovePopupButtonText] = React.useState('Да');
+    const [selectedCard, setSelectedCard] = React.useState({link: "",name: "",});
+    const [currentUser, setCurrentUser] = React.useState({});
 
     //---------------------------------------------------------------------------------------------------------------------
 
@@ -69,10 +71,17 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsDeleteCardPopup(false);
+        //    setIsInfoTooltipPopup(false);
         setCardDelete({ link: "", name: "" });
         setSelectedCard({ link: "", name: "" });
     }
 
+    // function closeInfoTooltipPopup() {
+    //     closeAllPopups();
+    //     if (isLuckInfoTooltip) {
+    //       handleIsLogin({email: userEmail, password: userPassword});
+    //     }
+    //   }
     //---------------------------------------------------------------------------------------------------------------------
 
     // Настраиваем хук, который устанавливает колбэки. Функция будет вызвана после того, как будут внесены все изменения в DOM.
@@ -81,7 +90,12 @@ function App() {
         () => {
             function handleOverlayClick(evt) {
                 if (evt.target.classList.contains("popup")) {
-                    closeAllPopups();
+                    //!
+                    if (isLuckInfoTooltip) {
+                        closeInfoTooltipPopup();
+                    } else {
+                        closeAllPopups();
+                    }
                 }
             }
             document.addEventListener("mousedown", handleOverlayClick);
@@ -91,7 +105,13 @@ function App() {
             };
         },
         // колбэк-очистка
-        []
+        [
+            //isLuckInfoTooltip,
+            isEditAvatarPopupOpen,
+            isEditProfilePopupOpen,
+            isAddPlacePopupOpen,
+            selectedCard
+        ]
     );
 
     // Функция, которая отвечает за закрытие попапа нажатием кнопки "escape"
