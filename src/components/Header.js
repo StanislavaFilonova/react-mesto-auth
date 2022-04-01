@@ -3,7 +3,7 @@ import vector from "../images/vector.svg";
 import React from "react";
 
 /**
- *  Функция: Создание компонента Header, который отвечает за прорисовку логотипа на сайте
+ *  Функция: Создание компонента Header, который отвечает за прорисовку логотипа и меню на сайте
  */
 function Header(props) {
     return (
