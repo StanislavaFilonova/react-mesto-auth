@@ -11,8 +11,9 @@
 * Реализован просмотр фотографий.
 * Проект состоит из функциональных компонентов.
 * В работе с проектом применены хуки React.useState, React.useEffect, React.useRef, React.useContext.
+* <https://stanislavafilonova.github.io/mesto-react/>
 
-## Проекты № 12
+## Проект № 12
 
 * Подключение авторизации и регистрации к проекту.
 * Работа с токеном.
@@ -47,4 +48,4 @@
 
 ### Ссылка на проект
 
-<https://stanislavafilonova.github.io/mesto-react/>
+<https://stanislavafilonova.github.io/react-mesto-auth/>
