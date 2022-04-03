@@ -1,21 +1,21 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import CurrentUserContext from '../contexts/CurrentUserContext';
+import React from "react";
+import PopupWithForm from "./PopupWithForm";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 //---------------------------------------------------------------------------------------------------------------------
 
-function EditProfilePopup(props){
+function EditProfilePopup(props) {
     const currentUser = React.useContext(CurrentUserContext);
-    const [name, setName] = React.useState('');
-    const [description, setDescription ] = React.useState('');
+    const [name, setName] = React.useState("");
+    const [description, setDescription] = React.useState("");
 
     function handleChangeName(evt) {
         setName(evt.target.value);
-    };
+    }
 
     function handleChangeDescription(evt) {
         setDescription(evt.target.value);
-    };
+    }
 
     React.useEffect(() => {
         setName(currentUser.name);
@@ -27,14 +27,14 @@ function EditProfilePopup(props){
 
         props.onUpdateUser({
             name: name,
-            about: description
+            about: description,
         });
-    };
+    }
 
     //---------------------------------------------------------------------------------------------------------------------
 
-    return(
-        <PopupWithForm 
+    return (
+        <PopupWithForm
             name="profile"
             title="Редактировать профиль"
             button="profile"
@@ -52,7 +52,7 @@ function EditProfilePopup(props){
                 minLength="2"
                 maxLength="40"
                 required
-                value={name|| ''}
+                value={name || ""}
                 onChange={handleChangeName}
             />
             <span id="name-input-error" className="popup__input-error"></span>
@@ -65,13 +65,15 @@ function EditProfilePopup(props){
                 minLength="2"
                 maxLength="200"
                 required
-                value={description || ''}
+                value={description || ""}
                 onChange={handleChangeDescription}
             />
-            <span id="occupation-input-error" className="popup__input-error popup__input-error_active"></span>
+            <span
+                id="occupation-input-error"
+                className="popup__input-error popup__input-error_active"
+            ></span>
         </PopupWithForm>
-    )
-        
+    );
 }
 
 export default EditProfilePopup;
