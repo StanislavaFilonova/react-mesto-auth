@@ -16,7 +16,7 @@ function InfoToolTip(props) {
     // }, []);
     return (
       <div
-        className={`popup ${props.isOpen ? "popup_opened" : ""}`}
+        className={`popup ${props.isOpen && "popup_opened"}`}
       >
         <div className="popup__wrapper">
             <button

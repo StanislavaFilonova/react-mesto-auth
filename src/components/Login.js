@@ -28,7 +28,6 @@ function Login(props) {
     }
 
     return (
-        <>
             <section className="auth">
                 <form
                     name="form-login"
@@ -82,9 +81,6 @@ function Login(props) {
                     </p>
                 </div>
             </section>
-        </>
-
-
     );
 }
 

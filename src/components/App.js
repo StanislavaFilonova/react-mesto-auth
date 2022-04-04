@@ -98,7 +98,9 @@ function App() {
     React.useEffect(() => {
         setIsLoading(true);
         // Чтение данных с сервера (информация о пользователе и карточках)
-        Promise.all([api.getUserInfo(), api.getCards()])
+        // Проверим, авторизован ли пользователь
+        if(isLoggedIn){
+            Promise.all([api.getUserInfo(), api.getCards()])
             .then(([user, cards]) => {
                 setCurrentUser(user);
                 setCards(cards);
@@ -107,7 +109,8 @@ function App() {
                 console.log(err);
             })
             .finally(() => setIsLoading(false));
-    }, []);
+        }
+    }, [isLoggedIn]);
 
     // Функция, которая отвечает за закрытие попапа нажатием кнопки "escape"
     React.useEffect(
@@ -279,18 +282,19 @@ function App() {
                 if (res.token) {
                     localStorage.setItem("jwt", res.token);
                     resetForm();
-                    history.push("/home");
                     setIsLoggedIn(true);
                     setEmail(email);
-                    setIsSuccess(true); //?
+                    history.push("/home");
                 }
             })
             .catch((err) => {
                 if (err.status === 400) {
                     console.log("400 - не передано одно из полей");
                     setIsSuccess(false);
+                    setIsInfoToolTipPopupOpen(true);
                 } else if (err.status === 401) {
                     console.log("401 - пользователь с email не найден");
+                    setIsInfoToolTipPopupOpen(true);
                 }
             });
     }
@@ -306,7 +310,6 @@ function App() {
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>
                 {/*текущее значение контекста из ближайшего подходящего Provider выше в дереве компонентов.*/}
-                <>
                     <Header email={email} onSignOut={handleSignOut} />
                     <Switch>
                         <ProtectedRoute
@@ -384,7 +387,6 @@ function App() {
                         onClose={closeAllPopups}
                         isSuccess={isSuccess}
                     />
-                </>
             </CurrentUserContext.Provider>
         </div>
     );
