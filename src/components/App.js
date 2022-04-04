@@ -36,6 +36,7 @@ function App() {
         name: "",
         link: "",
     });
+
     const [deletedCard, setDeletedCard] = React.useState({});
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -99,16 +100,16 @@ function App() {
         setIsLoading(true);
         // Чтение данных с сервера (информация о пользователе и карточках)
         // Проверим, авторизован ли пользователь
-        if(isLoggedIn){
+        if (isLoggedIn) {
             Promise.all([api.getUserInfo(), api.getCards()])
-            .then(([user, cards]) => {
-                setCurrentUser(user);
-                setCards(cards);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => setIsLoading(false));
+                .then(([user, cards]) => {
+                    setCurrentUser(user);
+                    setCards(cards);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => setIsLoading(false));
         }
     }, [isLoggedIn]);
 
@@ -310,83 +311,83 @@ function App() {
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>
                 {/*текущее значение контекста из ближайшего подходящего Provider выше в дереве компонентов.*/}
-                    <Header email={email} onSignOut={handleSignOut} />
-                    <Switch>
-                        <ProtectedRoute
-                            exact
-                            path="/home"
-                            isLoggedIn={isLoggedIn}
-                            onEditAvatar={handleEditAvatarClick}
-                            onEditProfile={handleEditProfileClick}
-                            onAddPlace={handleAddPlaceClick}
-                            onCardClick={handleCardClick}
-                            onCardLike={handleCardLike}
-                            onCardDelete={handleCardDeleteClick}
-                            cards={cards}
-                            component={Main}
-                            isLoading={isLoading}
+                <Header email={email} onSignOut={handleSignOut} />
+                <Switch>
+                    <ProtectedRoute
+                        exact
+                        path="/home"
+                        isLoggedIn={isLoggedIn}
+                        onEditAvatar={handleEditAvatarClick}
+                        onEditProfile={handleEditProfileClick}
+                        onAddPlace={handleAddPlaceClick}
+                        onCardClick={handleCardClick}
+                        onCardLike={handleCardLike}
+                        onCardDelete={handleCardDeleteClick}
+                        cards={cards}
+                        component={Main}
+                        isLoading={isLoading}
+                    />
+                    <Route path="/signin">
+                        <Login onLogin={handleIsLogin} history={history} />
+                    </Route>
+                    <Route path="/signup">
+                        <Register
+                            onRegister={handleIsRegister}
+                            history={history}
                         />
-                        <Route path="/signin">
-                            <Login onLogin={handleIsLogin} history={history} />
-                        </Route>
-                        <Route path="/signup">
-                            <Register
-                                onRegister={handleIsRegister}
-                                history={history}
-                            />
-                        </Route>
-                        <Route>
-                            {isLoggedIn ? (
-                                <Redirect to="/home" />
-                            ) : (
-                                <Redirect to="/signin" />
-                            )}
-                            {/* Если пользователь залогинен, отправляем его на домашнюю страницу, если нет, то на страницу с логином*/}
-                        </Route>
-                    </Switch>
+                    </Route>
+                    <Route>
+                        {isLoggedIn ? (
+                            <Redirect to="/home" />
+                        ) : (
+                            <Redirect to="/signin" />
+                        )}
+                        {/* Если пользователь залогинен, отправляем его на домашнюю страницу, если нет, то на страницу с логином*/}
+                    </Route>
+                </Switch>
 
-                    <Footer />
+                <Footer />
 
-                    {/* Добавление карточки */}
-                    <AddPlacePopup
-                        buttonSubmitText={placePopupButtonText}
-                        isOpen={isAddPlacePopupOpen}
-                        onAddPlace={handleAddPlaceSubmit}
-                        onClose={closeAllPopups}
-                    />
+                {/* Добавление карточки */}
+                <AddPlacePopup
+                    buttonSubmitText={placePopupButtonText}
+                    isOpen={isAddPlacePopupOpen}
+                    onAddPlace={handleAddPlaceSubmit}
+                    onClose={closeAllPopups}
+                />
 
-                    {/* Обновление аватара пользователя */}
-                    <EditAvatarPopup
-                        buttonSubmitText={avatarPopupButtonText}
-                        isOpen={isEditAvatarPopupOpen}
-                        onUpdateAvatar={handleUpdateAvatar}
-                        onClose={closeAllPopups}
-                    />
+                {/* Обновление аватара пользователя */}
+                <EditAvatarPopup
+                    buttonSubmitText={avatarPopupButtonText}
+                    isOpen={isEditAvatarPopupOpen}
+                    onUpdateAvatar={handleUpdateAvatar}
+                    onClose={closeAllPopups}
+                />
 
-                    {/* Редактирование профиля пользователя */}
-                    <EditProfilePopup
-                        buttonSubmitText={profilePopupButtonText}
-                        isOpen={isEditProfilePopupOpen}
-                        onUpdateUser={handleUpdateUser}
-                        onClose={closeAllPopups}
-                    />
+                {/* Редактирование профиля пользователя */}
+                <EditProfilePopup
+                    buttonSubmitText={profilePopupButtonText}
+                    isOpen={isEditProfilePopupOpen}
+                    onUpdateUser={handleUpdateUser}
+                    onClose={closeAllPopups}
+                />
 
-                    <DeleteCardPopup
-                        isOpen={isDeleteCardPopup}
-                        buttonSubmitText={removePopupButtonText}
-                        card={deletedCard}
-                        onSubmitDeleteCard={handleCardDelete}
-                        onClose={closeAllPopups}
-                    />
+                <DeleteCardPopup
+                    isOpen={isDeleteCardPopup}
+                    buttonSubmitText={removePopupButtonText}
+                    card={deletedCard}
+                    onSubmitDeleteCard={handleCardDelete}
+                    onClose={closeAllPopups}
+                />
 
-                    {/* Просмотр фотографии */}
-                    <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+                {/* Просмотр фотографии */}
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-                    <InfoToolTip
-                        isOpen={isInfoToolTipPopupOpen}
-                        onClose={closeAllPopups}
-                        isSuccess={isSuccess}
-                    />
+                <InfoToolTip
+                    isOpen={isInfoToolTipPopupOpen}
+                    onClose={closeAllPopups}
+                    isSuccess={isSuccess}
+                />
             </CurrentUserContext.Provider>
         </div>
     );

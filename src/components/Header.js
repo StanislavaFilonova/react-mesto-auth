@@ -10,23 +10,29 @@ function Header(props) {
         <header className="header">
             <img src={vector} alt="Логотип сервиса" className="header__logo" />
             <Switch>
-        <Route exact path="/signin">
-          <Link to="/signup" className="nav-menu__link">
-            Регистрация
-          </Link>
-        </Route>
-        <Route exact path="/signup">
-          <Link to="/signin" className="nav-menu__link">
-            Войти
-          </Link>
-        </Route>
-        <Route exact path="/home">
-          <div className="nav-menu">
-           <p className="nav-menu__text">{props.email}</p>
-          <Link to='/signin' className="nav-menu__link" onClick={props.onSignOut}>Выйти</Link>
-          </div>          
-        </Route>
-      </Switch>
+                <Route exact path="/signin">
+                    <Link to="/signup" className="nav-menu__link">
+                        Регистрация
+                    </Link>
+                </Route>
+                <Route exact path="/signup">
+                    <Link to="/signin" className="nav-menu__link">
+                        Войти
+                    </Link>
+                </Route>
+                <Route exact path="/home">
+                    <div className="nav-menu">
+                        <p className="nav-menu__text">{props.email}</p>
+                        <Link
+                            to="/signin"
+                            className="nav-menu__link"
+                            onClick={props.onSignOut}
+                        >
+                            Выйти
+                        </Link>
+                    </div>
+                </Route>
+            </Switch>
         </header>
     );
 }

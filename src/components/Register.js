@@ -34,51 +34,51 @@ function Register(props) {
                 className="auth__form"
                 onSubmit={handleSubmit}
             >
-            <h2 className="auth__welcome-title">Регистрация</h2>
+                <h2 className="auth__welcome-title">Регистрация</h2>
 
-            <label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="auth__input"
-                    maxLength="40"
-                    minLength="2"
-                    placeholder="Email"
-                    required
-                    value={email}
-                    onChange={handleEmailChange}
-                />
-            </label>
+                <label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="auth__input"
+                        maxLength="40"
+                        minLength="2"
+                        placeholder="Email"
+                        required
+                        value={email}
+                        onChange={handleEmailChange}
+                    />
+                </label>
 
-            <label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    className="auth__input"
-                    maxLength="20"
-                    minLength="6"
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={handlePasswordChange}
-                />
-            </label>
+                <label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        className="auth__input"
+                        maxLength="20"
+                        minLength="6"
+                        placeholder="Password"
+                        required
+                        value={password}
+                        onChange={handlePasswordChange}
+                    />
+                </label>
 
-            <button type="submit" className="auth__button">
-                Зарегистрироваться
-            </button>
-                </form>
+                <button type="submit" className="auth__button">
+                    Зарегистрироваться
+                </button>
+            </form>
             <div className="auth__signin">
-            <p className="auth__text">
-                Уже зарегистрированы?
-                <Link to="/signin" className="auth__login-links">
-                    {" "}
-                    Войти
-                </Link>
-            </p>
-        </div>
+                <p className="auth__text">
+                    Уже зарегистрированы?
+                    <Link to="/signin" className="auth__login-links">
+                        {" "}
+                        Войти
+                    </Link>
+                </p>
+            </div>
         </section>
     );
 }
