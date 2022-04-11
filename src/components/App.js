@@ -45,11 +45,15 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
         React.useState(false);
     const [isDeleteCardPopup, setIsDeleteCardPopup] = React.useState(false);
-    const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] =
-        React.useState(false);
-
+    // const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] =
+    //     React.useState(false);
+    const [isInfoToolTipPopup, setIsInfoToolTipPopup] =
+        React.useState({
+            status: false,
+            open: false,
+    });
     const [isLoading, setIsLoading] = React.useState(false);
-    const [isSuccess, setIsSuccess] = React.useState(false);
+    // const [isSuccess, setIsSuccess] = React.useState(false);
 
     const [profilePopupButtonText, setProfilePopupButtonText] =
         React.useState("Сохранить");
@@ -90,7 +94,8 @@ function App() {
         setIsDeleteCardPopup(false);
         setDeletedCard({ link: "", name: "" });
         setSelectedCard({ link: "", name: "" });
-        setIsInfoToolTipPopupOpen(false);
+        // setIsInfoToolTipPopupOpen(false);
+        setIsInfoToolTipPopup({status: false, open: false})
     }
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -263,8 +268,9 @@ function App() {
     function handleIsRegister(userEmail, userPassword, resetForm) {
         auth.register(userEmail, userPassword)
             .then((res) => {
-                setIsInfoToolTipPopupOpen(true);
-                setIsSuccess(true);
+                setIsInfoToolTipPopup({status: true, open: true})
+                // setIsInfoToolTipPopupOpen(true);
+                // setIsSuccess(true);
                 history.push("/signin");
                 resetForm();
             })
@@ -272,8 +278,9 @@ function App() {
                 if (err.status === 400) {
                     console.log("400 - некорректно заполнено одно из полей");
                 }
-                setIsInfoToolTipPopupOpen(true);
-                setIsSuccess(false);
+                setIsInfoToolTipPopup({status: false, open: true})
+                // setIsInfoToolTipPopupOpen(true);
+                // setIsSuccess(false);
             });
     }
 
@@ -291,12 +298,13 @@ function App() {
             .catch((err) => {
                 if (err.status === 400) {
                     console.log("400 - не передано одно из полей");
-                    setIsSuccess(false);
-                    setIsInfoToolTipPopupOpen(true);
+                    // setIsSuccess(false);
+                    // setIsInfoToolTipPopupOpen(true);
                 } else if (err.status === 401) {
                     console.log("401 - пользователь с email не найден");
-                    setIsInfoToolTipPopupOpen(true);
+                    // setIsInfoToolTipPopupOpen(true);
                 }
+                setIsInfoToolTipPopup({status: false, open: true})
             });
     }
 
@@ -384,9 +392,10 @@ function App() {
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
                 <InfoToolTip
-                    isOpen={isInfoToolTipPopupOpen}
+                    isOpen={isInfoToolTipPopup}
+                    //isOpen={isInfoToolTipPopupOpen}
                     onClose={closeAllPopups}
-                    isSuccess={isSuccess}
+                    isSuccess={isInfoToolTipPopup}
                 />
             </CurrentUserContext.Provider>
         </div>
