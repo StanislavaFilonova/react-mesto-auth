@@ -47,10 +47,9 @@ function App() {
     const [isDeleteCardPopup, setIsDeleteCardPopup] = React.useState(false);
     // const [isInfoToolTipPopupOpen, setIsInfoToolTipPopupOpen] =
     //     React.useState(false);
-    const [isInfoToolTipPopup, setIsInfoToolTipPopup] =
-        React.useState({
-            status: false,
-            open: false,
+    const [isInfoToolTipPopup, setIsInfoToolTipPopup] = React.useState({
+        status: false,
+        open: false,
     });
     const [isLoading, setIsLoading] = React.useState(false);
     // const [isSuccess, setIsSuccess] = React.useState(false);
@@ -95,7 +94,7 @@ function App() {
         setDeletedCard({ link: "", name: "" });
         setSelectedCard({ link: "", name: "" });
         // setIsInfoToolTipPopupOpen(false);
-        setIsInfoToolTipPopup({status: false, open: false})
+        setIsInfoToolTipPopup({ status: false, open: false });
     }
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -268,7 +267,7 @@ function App() {
     function handleIsRegister(userEmail, userPassword, resetForm) {
         auth.register(userEmail, userPassword)
             .then((res) => {
-                setIsInfoToolTipPopup({status: true, open: true})
+                setIsInfoToolTipPopup({ status: true, open: true });
                 // setIsInfoToolTipPopupOpen(true);
                 // setIsSuccess(true);
                 history.push("/signin");
@@ -278,7 +277,7 @@ function App() {
                 if (err.status === 400) {
                     console.log("400 - некорректно заполнено одно из полей");
                 }
-                setIsInfoToolTipPopup({status: false, open: true})
+                setIsInfoToolTipPopup({ status: false, open: true });
                 // setIsInfoToolTipPopupOpen(true);
                 // setIsSuccess(false);
             });
@@ -304,7 +303,7 @@ function App() {
                     console.log("401 - пользователь с email не найден");
                     // setIsInfoToolTipPopupOpen(true);
                 }
-                setIsInfoToolTipPopup({status: false, open: true})
+                setIsInfoToolTipPopup({ status: false, open: true });
             });
     }
 
@@ -392,10 +391,11 @@ function App() {
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
                 <InfoToolTip
-                    isOpen={isInfoToolTipPopup}
+                    isOpen={isInfoToolTipPopup.open}
                     //isOpen={isInfoToolTipPopupOpen}
                     onClose={closeAllPopups}
-                    isSuccess={isInfoToolTipPopup}
+                    //isSuccess={isInfoToolTipPopupOpen}
+                    isSuccess={isInfoToolTipPopup.status}
                 />
             </CurrentUserContext.Provider>
         </div>
